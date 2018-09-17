@@ -1,0 +1,33 @@
+---
+- name: Provision EC2 instance
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Create security group
+      ec2_group:
+        name: new-sg
+        description: Create security group
+        vpc_id: vpc-f7d5048d
+        region: us-east-1
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: 0.0.0.0/0
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: 0.0.0.0/0 
+        state: present
+    - ec2:
+        key_name: aws-class
+        region: us-east-1
+        instance_type: t2.micro
+        image: ami-0ff8a91507f77f867
+        wait: yes
+        group: new-sg
+        count: 1
+        vpc_subnet_id: subnet-04bbee4e
+        assign_public_ip: yes
+        state: present
+
