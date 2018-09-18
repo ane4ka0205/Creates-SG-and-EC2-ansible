@@ -7,7 +7,7 @@
       ec2_group:
         name: new-sg
         description: Create security group
-        vpc_id: vpc-f7d5048d
+        vpc_id: vpc-f7d504
         region: us-east-1
         rules:
           - proto: tcp
@@ -19,11 +19,14 @@
             to_port: 22
             cidr_ip: 0.0.0.0/0 
         state: present
+    - name: Create new key pair
+      ec2_key:
+        name: new-key
     - ec2:
-        key_name: aws-class
+        key_name: new-key
         region: us-east-1
         instance_type: t2.micro
-        image: ami-0ff8a91507f77f867
+        image: ami-0ff8a91507
         wait: yes
         group: new-sg
         count: 1
