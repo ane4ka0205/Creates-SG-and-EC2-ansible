@@ -14,8 +14,12 @@ Step 3   Create Security Group
 
 Step 4 Create new key pair
   - specify a name
+  - specify a region  
+  
+Step 5 Save a private key to your ansible master
+  - specify the location you want to download the key
 
-Step 5 Create EC2 instance
+Step 6 Create EC2 instance
   - specify a region
   - instance type (ex: t2.micro)
   - AMI
