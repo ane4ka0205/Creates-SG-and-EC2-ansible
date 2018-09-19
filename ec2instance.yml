@@ -22,6 +22,11 @@
     - name: Create new key pair
       ec2_key:
         name: new-key
+        region: us-east-1
+      register: ec2_key_result
+    - name: Save private kay
+      copy: content="{{ ec2_key_result.key.private_key }}" dest="./aws-key.pem" mode=0600
+      when: ec2_key_result.changed
     - ec2:
         key_name: new-key
         region: us-east-1
